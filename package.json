@@ -1,0 +1,30 @@
+{
+  "name": "create-node-ts",
+  "version": "1.0.0",
+  "description": "Bootstrap a Node.js + TypeScript project in few seconds",
+  "main": "bin/cli.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "node-ts-quickstart": "./bin/cli.js"
+  },
+  "keywords": [
+    "cli",
+    "typescript",
+    "nodejs",
+    "starter"
+  ],
+  "author": "Ayan De",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/chalk": "^0.4.31",
+    "@types/node": "^22.15.29",
+    "typescript": "^5.8.3"
+  }
+}
