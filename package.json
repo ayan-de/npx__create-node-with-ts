@@ -1,6 +1,6 @@
 {
   "name": "create-node-with-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bootstrap a Node.js + TypeScript project in few seconds",
   "homepage": "https://github.com/ayan-de/create-node-with-ts#readme",
   "repository": {
