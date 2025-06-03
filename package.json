@@ -2,6 +2,14 @@
   "name": "create-node-with-ts",
   "version": "1.0.1",
   "description": "Bootstrap a Node.js + TypeScript project in few seconds",
+  "homepage": "https://github.com/ayan-de/create-node-with-ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayan-de/create-node-with-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ayan-de/create-node-with-ts/issues"
+  },
   "main": "bin/cli.js",
   "scripts": {
     "build": "tsc",
