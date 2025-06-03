@@ -34,13 +34,23 @@ const writeJSON = (file: string, data: object) =>
   execSync(`npm install --save-dev typescript ts-node @types/node`);
   log.success('Installed required dependencies');
 
-  execSync(`npx tsc --init`);
-  const tsconfig = JSON.parse(fs.readFileSync('tsconfig.json', 'utf-8'));
-  tsconfig.compilerOptions.rootDir = root;
-  if (useDist) tsconfig.compilerOptions.outDir = "dist";
+  const tsconfig = {
+    compilerOptions: {
+      target: "esnext",
+      module: "commonjs",
+      strict: true,
+      rootDir: root,
+      ...(useDist ? { outDir: "dist" } : {}),
+      esModuleInterop: true,
+      skipLibCheck: true
+    },
+    include: [root],
+    exclude: ["node_modules", ...(useDist ? ["dist"] : [])]
+  };
   writeJSON('tsconfig.json', tsconfig);
-  log.success('tsconfig.json updated');
+  log.success('Created tsconfig.json');
 
+  // Modify package.json
   const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
   pkg.main = useDist ? `dist/${main.replace('.ts', '.js')}` : `${root}/${main}`;
   pkg.scripts = {
