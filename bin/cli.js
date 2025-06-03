@@ -53,6 +53,7 @@ const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringif
             ? `tsc && node dist/${main.replace('.ts', '.js')}`
             : `ts-node ${root}/${main}`
     };
+    fs_1.default.writeFileSync('.gitignore', 'node_modules\n');
     if (useNodemon) {
         (0, child_process_1.execSync)(`npm install --save-dev nodemon`);
         fs_1.default.writeFileSync('nodemon.json', JSON.stringify({
