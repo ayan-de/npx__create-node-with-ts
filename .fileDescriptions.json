@@ -1,0 +1,9 @@
+{
+  "src": "Contains core cli logic",
+  "src/cli.ts": "Main CLI entry point",
+  "README.md": "Project overview and usage instructions",
+  "bin/cli.js": "Compiled CLI entry point in javascript",
+  "tsconfig.json": "TypeScript configuration file",
+  "package.json": "Project metadata and dependencies",
+  ".gitignore": "Files to ignore in git"
+}
