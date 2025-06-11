@@ -7,5 +7,6 @@
   "package.json": "Project metadata and dependencies",
   ".gitignore": "Files to ignore in git",
   ".git/index": "TODO: Add description",
-  ".git/refs/heads/main": "TODO: Add description"
+  ".git/refs/heads/main": "TODO: Add description",
+  ".git/HEAD": "TODO: Add description"
 }
