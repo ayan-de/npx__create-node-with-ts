@@ -8,5 +8,9 @@
   ".gitignore": "Files to ignore in git",
   ".git/index": "TODO: Add description",
   ".git/refs/heads/main": "TODO: Add description",
-  ".git/HEAD": "TODO: Add description"
+  ".git/HEAD": "TODO: Add description",
+  ".git/AUTO_MERGE": "TODO: Add description",
+  ".git/ORIG_HEAD": "TODO: Add description",
+  ".github": "TODO: Add description",
+  ".git/refs/remotes/origin/main": "TODO: Add description"
 }
