@@ -5,5 +5,7 @@
   "bin/cli.js": "Compiled CLI entry point in javascript",
   "tsconfig.json": "TypeScript configuration file",
   "package.json": "Project metadata and dependencies",
-  ".gitignore": "Files to ignore in git"
+  ".gitignore": "Files to ignore in git",
+  ".git/index": "TODO: Add description",
+  ".git/refs/heads/main": "TODO: Add description"
 }
