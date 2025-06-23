@@ -26,6 +26,10 @@ const writeJSON = (file: string, data: object) =>
   ]);
 
   execSync(`mkdir -p ${root}`);
+  if (useDist) {
+  execSync('mkdir -p dist');
+  log.success('Created dist folder');
+}
   fs.writeFileSync(`${root}/${main}`, `console.log('Hello from ${main}');\n`);
   log.success(`Created ${root}/${main}`);
 
@@ -56,7 +60,8 @@ const writeJSON = (file: string, data: object) =>
   pkg.scripts = {
     start: useDist
       ? `tsc && node dist/${main.replace('.ts', '.js')}`
-      : `ts-node ${root}/${main}`
+      : `ts-node ${root}/${main}`,
+    build: `tsc`
   };
 
 fs.writeFileSync('.gitignore', 'node_modules\n');
@@ -76,5 +81,6 @@ fs.writeFileSync('.gitignore', 'node_modules\n');
   writeJSON('package.json', pkg);
 
   log.success('Setup complete!');
+    console.log(`TO build run ${chalk.cyan(`npm run build`)} `);
   console.log(`Run ${chalk.cyan(`'${useNodemon ? 'npm run dev' : 'npm start'}'`)} to begin`);
 })();

@@ -24,6 +24,10 @@ const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringif
         { type: 'confirm', name: 'useNodemon', message: 'Enable nodemon auto-reload?', initial: true }
     ]);
     (0, child_process_1.execSync)(`mkdir -p ${root}`);
+    if (useDist) {
+        (0, child_process_1.execSync)('mkdir -p dist');
+        log.success('Created dist folder');
+    }
     fs_1.default.writeFileSync(`${root}/${main}`, `console.log('Hello from ${main}');\n`);
     log.success(`Created ${root}/${main}`);
     log.info('Initializing project...');
@@ -51,7 +55,8 @@ const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringif
     pkg.scripts = {
         start: useDist
             ? `tsc && node dist/${main.replace('.ts', '.js')}`
-            : `ts-node ${root}/${main}`
+            : `ts-node ${root}/${main}`,
+        build: `tsc`
     };
     fs_1.default.writeFileSync('.gitignore', 'node_modules\n');
     if (useNodemon) {
@@ -67,5 +72,6 @@ const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringif
     }
     writeJSON('package.json', pkg);
     log.success('Setup complete!');
+    console.log(`TO build run ${chalk_1.default.cyan(`npm run build`)} `);
     console.log(`Run ${chalk_1.default.cyan(`'${useNodemon ? 'npm run dev' : 'npm start'}'`)} to begin`);
 })();
