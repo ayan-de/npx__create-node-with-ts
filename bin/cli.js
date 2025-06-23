@@ -17,11 +17,12 @@ const log = {
 const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringify(data, null, 2));
 (async () => {
     log.info('Welcome to Node.js + TypeScript project setup');
-    const { root, main, useDist, useNodemon } = await (0, prompts_1.default)([
+    const { root, main, useDist, useNodemon, hoverSupport } = await (0, prompts_1.default)([
         { type: 'text', name: 'root', message: 'Root folder (e.g., src)', initial: 'src' },
         { type: 'text', name: 'main', message: 'Main file name', initial: 'index.ts' },
         { type: 'confirm', name: 'useDist', message: 'Use dist folder for compiled JS?', initial: true },
-        { type: 'confirm', name: 'useNodemon', message: 'Enable nodemon auto-reload?', initial: true }
+        { type: 'confirm', name: 'useNodemon', message: 'Enable nodemon auto-reload?', initial: true },
+        { type: 'confirm', name: 'hoverSupport', message: 'Enable Support for hover-explainer extension?', initial: true }
     ]);
     (0, child_process_1.execSync)(`mkdir -p ${root}`);
     if (useDist) {
@@ -71,7 +72,30 @@ const writeJSON = (file, data) => fs_1.default.writeFileSync(file, JSON.stringif
         log.success('Nodemon configured');
     }
     writeJSON('package.json', pkg);
+    if (hoverSupport) {
+        log.info(`Making hover-explainer support...`);
+        const fileDescriptions = {
+            "src": "This is the source code file.",
+            "src/index.ts": "This is the main file of your project.",
+            ".gitignore": "This file is used to ignore files and folders during git operations.",
+            "tsconfig.json": "This file is used to configure the TypeScript compiler.",
+            "package.json": "This file is used to configure the Node.js project."
+        };
+        if (useDist) {
+            fileDescriptions["dist"] = "This folder is used to store compiled JavaScript files.";
+        }
+        if (useNodemon) {
+            fileDescriptions["nodemon.json"] = "This file is used to configure the nodemon process.";
+        }
+        fs_1.default.writeFileSync('.fileDescriptions.json', JSON.stringify(fileDescriptions, null, 2));
+        fs_1.default.writeFileSync('.fileignore', "node_modules\n.git/\ndist/\n");
+        log.success('hover-explainer configured. Refresh your editor to see the changes.');
+        log.warn(`hover-explainer will work only if you have the hover-explainer extension installed.`);
+    }
     log.success('Setup complete!');
+    log.info('Building...');
+    (0, child_process_1.execSync)(`npm run build`);
+    log.success(`Build complete`);
     console.log(`TO build run ${chalk_1.default.cyan(`npm run build`)} `);
     console.log(`Run ${chalk_1.default.cyan(`'${useNodemon ? 'npm run dev' : 'npm start'}'`)} to begin`);
 })();
