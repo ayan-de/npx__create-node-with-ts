@@ -81,6 +81,9 @@ fs.writeFileSync('.gitignore', 'node_modules\n');
   writeJSON('package.json', pkg);
 
   log.success('Setup complete!');
-    console.log(`TO build run ${chalk.cyan(`npm run build`)} `);
+  log.info('Building...');
+  execSync(`npm run build`);
+  log.success(`Build complete`);
+  console.log(`TO build run ${chalk.cyan(`npm run build`)} `);
   console.log(`Run ${chalk.cyan(`'${useNodemon ? 'npm run dev' : 'npm start'}'`)} to begin`);
 })();
