@@ -18,11 +18,13 @@ const writeJSON = (file: string, data: object) =>
 (async () => {
   log.info('Welcome to Node.js + TypeScript project setup');
 
-  const { root, main, useDist, useNodemon } = await prompts([
+  const { root, main, useDist, useNodemon ,hoverSupport } = await prompts([
     { type: 'text', name: 'root', message: 'Root folder (e.g., src)', initial: 'src' },
     { type: 'text', name: 'main', message: 'Main file name', initial: 'index.ts' },
     { type: 'confirm', name: 'useDist', message: 'Use dist folder for compiled JS?', initial: true },
-    { type: 'confirm', name: 'useNodemon', message: 'Enable nodemon auto-reload?', initial: true }
+    { type: 'confirm', name: 'useNodemon', message: 'Enable nodemon auto-reload?', initial: true },
+    { type: 'confirm', name: 'hoverSupport', message: 'Enable Support for hover-explainer extension?', initial: true }
+
   ]);
 
   execSync(`mkdir -p ${root}`);
@@ -79,6 +81,33 @@ fs.writeFileSync('.gitignore', 'node_modules\n');
   }
 
   writeJSON('package.json', pkg);
+
+if (hoverSupport) {
+  log.info(`Making hover-explainer support...`);
+
+  const fileDescriptions: Record<string, string> = {
+    "src": "This is the source code file.",
+    "src/index.ts": "This is the main file of your project.",
+    ".gitignore": "This file is used to ignore files and folders during git operations.",
+    "tsconfig.json": "This file is used to configure the TypeScript compiler.",
+    "package.json": "This file is used to configure the Node.js project."
+  };
+
+  if (useDist) {
+    fileDescriptions["dist"] = "This folder is used to store compiled JavaScript files.";
+  }
+
+  if (useNodemon) {
+    fileDescriptions["nodemon.json"] = "This file is used to configure the nodemon process.";
+  }
+
+  fs.writeFileSync('.fileDescriptions.json', JSON.stringify(fileDescriptions, null, 2));
+
+  fs.writeFileSync('.fileignore', "node_modules\n.git/\ndist/\n");
+
+  log.success('hover-explainer configured. Refresh your editor to see the changes.');
+  log.warn(`hover-explainer will work only if you have the hover-explainer extension installed.`);
+}
 
   log.success('Setup complete!');
   log.info('Building...');
