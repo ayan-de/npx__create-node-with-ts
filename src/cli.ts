@@ -4,6 +4,8 @@ import prompts from 'prompts';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 const log = {
   info: (msg: string) => console.log(chalk.blue(msg)),
@@ -27,9 +29,11 @@ const writeJSON = (file: string, data: object) =>
 
   ]);
 
-  execSync(`mkdir -p ${root}`);
+  // execSync(`mkdir -p ${root}`);
+  fs.mkdirSync(root, { recursive: true });
   if (useDist) {
-  execSync('mkdir -p dist');
+  // execSync('mkdir -p dist');
+  fs.mkdirSync('dist', { recursive: true });
   log.success('Created dist folder');
 }
   fs.writeFileSync(`${root}/${main}`, `console.log('Hello from ${main}');\n`);
